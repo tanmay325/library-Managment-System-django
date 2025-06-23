@@ -1,0 +1,108 @@
+{% extends 'admin_navbar.html' %}
+{% load static %}
+{% block title %} Issued Books {% endblock %}
+{% block css %}
+<style>
+    body {
+        background-color: lavender;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: rgb(75, 160, 251);
+        color: white;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: rgb(209, 252, 255); /* Light blue */
+    }
+
+    .table tr:nth-child(odd) {
+        background-color: rgb(255, 255, 255); /* Light gray */
+    }
+
+    .table tr:hover {
+        background-color: rgb(230, 230, 230);
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h1 class="text-center"><u>All Issued Books</u></h1>
+    <table class="table table-hover">
+        <thead>
+            <tr class="text-center">
+                <th>Sr.No</th>
+                <th>Student</th>
+                <th>Student ID</th>
+                <th>Book Name</th>
+                <th>ISBN</th>
+                <th>Issued Date</th>
+                <th>Due Date</th>
+                <th>Fine</th>
+                <th>Return</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in details %}
+            <tr class="text-center">
+                <td>{{ forloop.counter }}.</td>
+                <td>{{ i.0 }}</td>
+                <td>{{ i.1 }}</td>
+                <td>{{ i.2 }}</td>
+                <td>{{ i.3 }}</td>
+                <td>{{ i.4 }}</td>
+                <td>{{ i.5 }}</td>
+                <td>₹ {{ i.6 }}</td>
+                <td>
+                    <a href="{% url 'return_book' i.1 i.3 %}" class="btn btn-danger"
+                       onclick="return confirm('Are you sure you want to return this book?')">Return Book</a>
+                </td>                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if issuedBooks.has_previous %}
+                <a href="?page=1">First</a>
+                <a href="?page={{ issuedBooks.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ issuedBooks.number }} of {{ issuedBooks.paginator.num_pages }}.
+            </span>
+
+            {% if issuedBooks.has_next %}
+                <a href="?page={{ issuedBooks.next_page_number }}">Next</a>
+                <a href="?page={{ issuedBooks.paginator.num_pages }}">Last</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

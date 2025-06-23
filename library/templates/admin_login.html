@@ -1,0 +1,81 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block title %} Book Nirvana {% endblock %}
+{% block css %}
+<style>
+    body {
+        background-color: lavender;
+        margin: 0;
+    }
+
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 60px); /* Adjust for the height of the navigation bar */
+    }
+
+    .form-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .form-container label {
+        display: block;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .form-container input {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .form-group {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+</nav>
+
+<!-- Main content -->
+<div class="main-container">
+    <div class="form-container">
+        <h1 class="text-center"><u>Librarian Login</u></h1><br>
+        
+        <form method="POST"> {% csrf_token %}
+            <div class="row mt-4">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control mt-2" name="username" placeholder="Enter Username" required>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control mt-2" name="password" placeholder="Enter Password" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary mt-4">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Invalid Username or Password.")
+    document.location = "/admin_login"
+    {% endif %}
+</script>
+{% endblock %}

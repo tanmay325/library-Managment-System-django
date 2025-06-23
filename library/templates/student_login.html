@@ -1,0 +1,52 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block title %} Book Nirvana {% endblock %}
+{% block css %}
+<style>
+    body {
+        background-color: lavender;
+    }
+    .card {
+        margin-top: 50px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+    .card-header {
+        background-color: #007bff;
+        color: white;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3><u>Student Login</u></h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST"> {% csrf_token %}
+                        <div class="form-group">
+                            <label><i style="font-weight: bold;">Username</i></label>
+                            <input type="text" class="form-control mt-2" name="username" placeholder="Enter Username" required>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label><i style="font-weight: bold;">Password</i></label>
+                            <input type="password" class="form-control mt-2" name="password" placeholder="Enter Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary mt-4">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Invalid Username or Password.")
+    document.location = "/student_login"
+    {% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'admin_navbar.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+<style>
+    body {
+        background-color: lavender;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin-top: -60px; /* Adjust this value based on your navbar height */
+    }
+    .card {
+        width: 100%;
+        max-width: 600px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        background-color: white;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .btn {
+        width: 100%;
+    }
+    .alert {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 4px;
+        text-align: center;
+    }
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    .alert-warning {
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeeba;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="card">
+        <h3 class="card-title text-center">Add a New Book</h3>
+        <!-- Display Alerts -->
+        {% if duplicate_alert %}
+            <div class="alert alert-warning">
+                The book already exists in the Library!
+            </div>
+        {% elif success_alert %}
+            <div class="alert alert-success">
+                The book has been added successfully!
+            </div>
+        {% endif %}
+        <form method="POST"> {% csrf_token %}
+            <!-- Book Name -->
+            <div class="form-group">
+                <label><i style="font-weight: bold;">Book Name</i></label>
+                <input type="text" class="form-control mt-2" name="name" placeholder="Enter name of the Book" required>
+            </div>
+
+            <!-- Author Name -->
+            <div class="form-group">
+                <label><i style="font-weight: bold;">Author Name</i></label>
+                <input type="text" class="form-control mt-2" name="author" placeholder="Enter name of the Author" required>
+            </div>
+
+            <!-- ISBN Number -->
+            <div class="form-group">
+                <label><i style="font-weight: bold;">ISBN Number</i></label>
+                <input type="number" class="form-control mt-2" name="isbn" placeholder="Enter ISBN number of the book" required>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+                <label><i style="font-weight: bold;">Category</i></label>
+                <input type="text" class="form-control mt-2" name="category" placeholder="Enter Category of the book" required>
+            </div>
+
+            <!-- Book Quantity -->
+            <div class="form-group">
+                <label><i style="font-weight: bold;">Book Quantity</i></label>
+                <input type="number" class="form-control mt-2" name="quantity" placeholder="Enter number of copies available" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-outline-primary mt-4">Add Book</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

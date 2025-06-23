@@ -1,0 +1,126 @@
+{% extends 'student_navbar.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block css %}
+<style>
+.profile {
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.profile-img {
+    text-align: right; /* Align the image to the right */
+}
+.profile-img img {
+    width: 310px;
+    height: 270px;
+    border-radius: 10px; /* Add rounded corners to the image */
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2); /* Add shadow to the image */
+}
+.profile-tab {
+    padding: 20px;
+}
+.profile-tab .row {
+    margin-bottom: 15px;
+}
+.profile-tab label {
+    font-weight: bold;
+    color: #007bff; /* Blue color for labels */
+}
+.profile-tab p {
+    margin: 0;
+    color: #333; /* Darker text color for better readability */
+}
+.btn-edit-profile {
+    width: 9rem;
+    margin-top: 20px;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container profile">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="profile-tab">
+                <div class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>ID:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{user.id}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Username:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{user}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Full Name:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{user.get_full_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Email:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{user.email}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Phone Number:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{user.student.phone}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Branch:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{user.student.branch}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Class:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{user.student.classroom}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Roll Number:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{user.student.roll_no}}</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="/edit_profile/" class="btn btn-outline-primary btn-edit-profile">Edit Profile</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="profile-img">
+                <img src="{{user.student.image.url}}" alt="Profile Image">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

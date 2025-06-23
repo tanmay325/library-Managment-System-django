@@ -1,0 +1,117 @@
+{% extends 'admin_navbar.html' %}
+{% load static %}
+{% block title %} Issue Book {% endblock %}
+{% block css %}
+<style>
+    body {
+        background-color: lavender;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin-top: -60px;
+    }
+    .card {
+        width: 100%;
+        max-width: 600px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        background-color: white;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        font-weight: bold;
+    }
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="card">
+        <h2 class="text-center">Issue Book</h2>
+        <form method="GET" action="">
+            <div class="form-group">
+                <label for="student-search">Search Student</label>
+                <input type="text" id="student-search" name="student_q" 
+                    placeholder="Search by name or roll number" value="{{ request.GET.student_q }}" 
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="book-search">Search Book</label>
+                <input type="text" id="book-search" name="book_q" 
+                    placeholder="Search by name, author, or ISBN" value="{{ request.GET.book_q }}" 
+                    class="form-control">
+            </div>
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+        </form>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="student-select">Selected Student</label>
+                <select name="student_id" id="student-select" class="form-control">
+                    {% for student in students %}
+                    <option value="{{ student.user.id }}">
+                        {{ student.user.first_name }} {{ student.user.last_name }} ({{ student.roll_no }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="book-select">Selected Book</label>
+                <select name="book_isbn" id="book-select" class="form-control">
+                    {% for book in books %}
+                    <option value="{{ book.isbn }}">
+                        {{ book.name }} by {{ book.author }} (ISBN: {{ book.isbn }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Issue Book</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if book_not_available %}
+        alert("This book does not exist in the library.");
+    {% endif %}
+
+    {% if book_out_of_stock %}
+        alert("This book is currently out of stock. No copies are available.");
+    {% endif %}
+
+    {% if alert %}
+        alert("Book successfully issued!");
+    {% endif %}
+</script>
+{% endblock %}
+

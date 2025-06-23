@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ReadMe file:
 # About the Project
 Library Management System Project created with Django. Developed web services using Python (Django Framework).
@@ -41,6 +40,5 @@ Technologies used:
 ●	Database: dbSQLite3
 
 Books in homepage will show status of issued , issue requested or request issue based on whether the book is issued or requested for a issue or is not requested for logged-in students only.
-=======
+
 # library-Managment-System-django
->>>>>>> 367b6aec8bcf34aab337adb15d3f4bcb65cc893b
